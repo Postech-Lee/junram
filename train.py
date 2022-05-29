@@ -114,7 +114,7 @@ def train(args):
         transform_train = transforms.Compose([Resize(shape=(ny, nx, nch)), Normalization(mean = 0.5, std=0.5)])
 
         dataset_train = Dataset(data_dir=data_dir, transform=transform_train, task=task, opts=opts)
-        loader_train = DataLoader(dataset_train, batch_size=batch_size, shuffle=True, num_workers=0)
+        loader_train = DataLoader(dataset_train, batch_size=batch_size, shuffle=True, num_workers=8)
 
         # 그밖에 부수적인 variables 설정하기
         num_data_train = len(dataset_train)
@@ -140,8 +140,6 @@ def train(args):
         net = SRResNet(in_channels=nch, out_channels=nch, nker=nker, learning_type=learning_type, nblk=16).to(device)
     '''
     ## 손실함수 정의하기
-    # fn_loss = nn.BCEWithLogitsLoss().to(device)
-    #fn_loss = nn.MSELoss().to(device)
     fn_loss = nn.BCELoss().to(device)
 
     ## Optimizer 설정하기
@@ -217,7 +215,7 @@ def train(args):
                 loss_D_fake_train += [loss_D_fake.item()]
 
                 print("TRAIN: EPOCH %04d / %04d | BATCH %04d / %04d | "
-                      "GAN %.4f | DISC REAL:%.4f | DISC FAKE: %.4f" %
+                      "GAN %.4f | DISC REAL:%.4f | DISC FAKE: %.4f " %
                       (epoch, num_epoch, batch, num_batch_train,np.mean(loss_G_train),
                        np.mean(loss_D_real_train), np.mean(loss_D_fake_train)))
 
@@ -334,8 +332,6 @@ def test(args):
 
 
     ## 손실함수 정의하기
-    # fn_loss = nn.BCEWithLogitsLoss().to(device)
-    # fn_loss = nn.MSELoss().to(device)
     fn_loss = nn.BCELoss().to(device)
 
     ## Optimizer 설정하기

@@ -1,23 +1,22 @@
+
 import cv2
 import mediapipe as mp
-import time
 import os
-face_cascade = cv2.CascadeClassifier('../haarcascades/haarcascade_frontalface_default.xml')
-eye_casecade = cv2.CascadeClassifier('../haarcascades/haarcascade_eye.xml')
 
-name="4"
+name="2"
 cap=cv2.VideoCapture("videos/"+name+".mp4")
-pTime=0
 
 mpFaceDetection = mp.solutions.face_detection
 mpDraw=mp.solutions.drawing_utils
 
 faceDetection = mpFaceDetection.FaceDetection() #페이스디텍션 시작
 imgNum=0
+
 if not os.path.exists("./nowtrying"):
     os.makedirs("./nowtrying")
 if not os.path.exists("./nowtrying/"+name):
     os.makedirs("./nowtrying/"+name)
+
 while True:
     success,img=cap.read()
 
@@ -41,15 +40,6 @@ while True:
             # 이미지를 저장
             cv2.imwrite("./nowtrying/"+name+"/" + str(imgNum) + ".png", cropped)
             imgNum += 1
-            #cv2.rectangle(img, bbox, (250,123, 0), 2)
-    cTime = time.time()
 
-    try:
-        fps=1/(cTime-pTime)
-    except:
-        fps=0
-    pTime=cTime
-    cv2.putText(img,f'FPS: {int(fps)}',(20,70),cv2.FONT_HERSHEY_PLAIN,
-                3,(255,255,0),3)
     cv2.imshow("Image",img)
     cv2.waitKey(2)

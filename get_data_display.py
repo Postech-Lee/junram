@@ -1,45 +1,6 @@
-import numpy as np
-import pandas as pd
-import os
-import seaborn as sns
-import matplotlib.pyplot as plt
-import cv2 as cv
-import warnings
-warnings.filterwarnings(action='ignore')
-
-DATA_FOLDER = 'C:\\Users\\SANGMAN\\input\\deepfake-detection-challenge' #데이터들 위치지정
-TRAIN_SAMPLE_FOLDER = 'train_sample_videos' #훈련용 폴더이름
-TEST_FOLDER = 'test_videos' #테스트용 폴더이름
-
-print(f"Train samples: {len(os.listdir(os.path.join(DATA_FOLDER, TRAIN_SAMPLE_FOLDER)))}")
-print(f"Test samples: {len(os.listdir(os.path.join(DATA_FOLDER, TEST_FOLDER)))}")
-
-train_list = list(os.listdir(os.path.join(DATA_FOLDER, TRAIN_SAMPLE_FOLDER))) #훈련 파일들 이름 리스트
-
-json_file = [file for file in train_list if  file.endswith('json')][0] #json파일찾기(정보)
-print(f"JSON file: {json_file}")
 
 
-def get_meta_from_json(path): #json 읽기
-    df = pd.read_json(os.path.join(DATA_FOLDER, path, json_file))
-    df = df.T
-    return df
 
-meta_train_df = get_meta_from_json(TRAIN_SAMPLE_FOLDER) #train json 읽기
-meta_train_df.head()
-
-def missing_data(data): #json과 실제 비교
-    total = data.isnull().sum()
-    percent = (data.isnull().sum()/data.isnull().count()*100)
-    tt = pd.concat([total, percent], axis=1, keys=['Total', 'Percent'])
-    types = []
-    for col in data.columns:
-        dtype = str(data[col].dtype)
-        types.append(dtype)
-    tt['Types'] = types
-    return(np.transpose(tt))
-missing_data(meta_train_df)
-missing_data(meta_train_df.loc[meta_train_df.label=='REAL'])
 
 def most_frequent_values(data):
     total = data.count()#데이터 카운트
@@ -80,11 +41,6 @@ plot_count('label', 'label (train)', meta_train_df)
 
 
 
-meta = np.array(list(meta_train_df.index))
-storage = np.array([file for file in train_list if  file.endswith('mp4')])
-print(f"Metadata: {meta.shape[0]}, Folder: {storage.shape[0]}")
-print(f"Files in metadata and not in folder: {np.setdiff1d(meta,storage,assume_unique=False).shape[0]}")#metadata에 있는데 실제로 없는 데이터
-print(f"Files in folder and not in metadata: {np.setdiff1d(storage,meta,assume_unique=False).shape[0]}")#실제로 있는데 metadata에 없는 데이터
 
 fake_train_sample_video = list(meta_train_df.loc[meta_train_df.label=='FAKE'].sample(3).index)
 print(fake_train_sample_video) #페이크비디오 리스트
