@@ -10,6 +10,7 @@ import os
 from PIL import Image
 
 warnings.filterwarnings(action='ignore')
+
 ## Parser 생성하기
 parser = argparse.ArgumentParser(description="Regression Tasks such as inpainting, denoising, and super_resolution",
                                  formatter_class=argparse.ArgumentDefaultsHelpFormatter)
@@ -21,7 +22,7 @@ parser.add_argument("--lr", default=2e-4, type=float, dest="lr")
 parser.add_argument("--batch_size", default=120, type=int, dest="batch_size")
 parser.add_argument("--num_epoch", default=100, type=int, dest="num_epoch")
 
-parser.add_argument("--data_dir", default="./../datasets/img_align_celeba", type=str, dest="data_dir")
+parser.add_argument("--data_dir", default="./../img_align_celeba", type=str, dest="data_dir")
 parser.add_argument("--ckpt_dir", default="./checkpoint", type=str, dest="ckpt_dir")
 parser.add_argument("--log_dir", default="./log", type=str, dest="log_dir")
 parser.add_argument("--result_dir", default="./result", type=str, dest="result_dir")
@@ -39,7 +40,7 @@ parser.add_argument("--learning_type", default="plain", choices=["plain", "resid
 
 args = parser.parse_args()
 
-
+'''
 DATA_FOLDER = "C://Users/user/PycharmProjects/datasets" #데이터들 위치지정
 TRAIN_SAMPLE_FOLDER = 'train_videos' #훈련용 폴더이름
 TEST_FOLDER = 'test_videos' #테스트용 폴더이름
@@ -143,11 +144,14 @@ for i in train_list:
 
 
 
-
+'''
 if __name__ == "__main__":
     if args. mode == "train":
-        pass#train(args)
+
+        dir_TE = input("test할 영상의 디렉토리를 입력하세요: ")
+        train(args)
     elif args.mode == "test":
-        pass#test(args)
+        pass
+        #test(args)
 
 # tensorboard --logdir ./log

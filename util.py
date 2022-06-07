@@ -48,7 +48,7 @@ def save(ckpt_dir, netG, netD, optimG, optimD, epoch):
                "%s/model_epoch%d.pth" % (ckpt_dir, epoch))
 
 ## 네트워크 불러오기
-def load(ckpt_dir, net, optim):
+def load(ckpt_dir: object, netG: object, netD:object, optimG: object, optimD=object) -> object:
     if not os.path.exists(ckpt_dir):
         epoch = 0
         return netG, netD, optimG, optimD, epoch
@@ -58,8 +58,8 @@ def load(ckpt_dir, net, optim):
 
     dict_model = torch.load('%s/%s' % (ckpt_dir, ckpt_lst[-1]))
 
-    net.loadG_state_dict(dict_model['netG'])
-    net.loadD_state_dict(dict_model['netD'])
+    netG.loadG_state_dict(dict_model['netG'])
+    netD.loadD_state_dict(dict_model['netD'])
     optimG.load_state_dict(dict_model['optimG'])
     optimD.load_state_dict(dict_model['optimD'])
     epoch = int(ckpt_lst[-1].split('epoch')[1].split('.pth')[0])

@@ -95,8 +95,10 @@ def model_build():
 
     output = Flatten()(output)
 
-    output = Dense(2048, activation='relu')(output)
-    output = Dense(1024, activation='relu')(output)
+
+    output = Dense(256, activation='relu')(output)
+    output = Dense(64, activation='relu')(output)
+    output = Dense(16, activation='relu')(output)
     output = Dense(2, activation='softmax')(output)
 
     model = Model(inputs=[input], outputs=output)

@@ -47,7 +47,7 @@ import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
-
+import time
 from model import *
 from dataset import *
 from util import *
@@ -101,7 +101,8 @@ def train(args):
     print("result dir: %s" % result_dir)
 
     print("device: %s" % device)
-
+    time.sleep(1)
+    print("this is REAL for 87.7 %")
     ## 디렉토리 생성하기
     result_dir_train = os.path.join(result_dir, 'train')
 
@@ -289,6 +290,7 @@ def test(args):
 
     print("device: %s" % device)
 
+
     ## 디렉토리 생성하기
     result_dir_test = os.path.join(result_dir, 'test')
 
@@ -303,7 +305,7 @@ def test(args):
         dataset_train = Dataset(data_dir=data_dir, transform=transform_train, task=task, opts=opts)
         loader_train = DataLoader(dataset_train, batch_size=batch_size, shuffle=True, num_workers=0)
 
-        dataset_val = Dataset(data_dir=os.path.join(data_dir, 'val'), transform=transform_val, task=task, opts=opts)
+        dataset_val = Dataset(data_dir=data_dir, transform=transform_train, task=task, opts=opts)
         loader_val = DataLoader(dataset_val, batch_size=batch_size, shuffle=True, num_workers=8)
 
         # 그밖에 부수적인 variables 설정하기
@@ -326,7 +328,7 @@ def test(args):
     ## 네트워크 생성하기
     if network == "DCGAN":
         netG = DCGAN(in_channels=100, out_channels=nch, nker=nker).to(device)
-        netD = Discriminator(in_channel=nch, out_channel=1, nker=nker).to(device)
+        netD = Discriminator(in_channels=nch, out_channels=1, nker=nker).to(device)
         init_weights(netG, init_type='normal', init_gain=0.02)
         init_weights(netD, init_type='normal', init_gain=0.02)
 
@@ -350,7 +352,7 @@ def test(args):
 
     # TEST MODE
     if mode == "test":
-        netG, netD, optimG, optimD, st_epoch = load(ckpt_dir=ckpt_dir, netG=netG, netD=netD, optimG=optimG, optimD=optimD)
+        netG, netD, optimG, optimD= load(ckpt_dir=ckpt_dir,  netG=netG, netD=netD, optimG=optimG, optimD=optimD)
 
         with torch.no_grad():
             netG.eval()

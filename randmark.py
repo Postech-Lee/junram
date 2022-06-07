@@ -1,7 +1,7 @@
 import cv2
 import mediapipe as mp
 import time
-cap=cv2.VideoCapture("videos/1.mp4")
+cap=cv2.VideoCapture("C://Users/user/PycharmProjects/datasets/try1.mp4")
 pTime=0
 
 mpDraw=mp.solutions.drawing_utils
@@ -11,16 +11,21 @@ drawSpec = mpDraw.DrawingSpec(thickness=1, circle_radius=1)
 
 while True:
     success,img=cap.read()
-    imgRGB = cv2.cvtColor(img,cv2.cv2.COLOR_BGR2RGB)
+    imgRGB = cv2.cvtColor(img,cv2.COLOR_BGR2RGB)
     results = faceMash.process(imgRGB)
-    if results.multi_face_landmarks:
-        for faceLms in results.multi_face_landmarks:
-            mpDraw.draw_landmarks(img,faceLms, mpFaceMesh.FACEMESH_RIGHT_EYE,drawSpec,drawSpec)
-            for id,lm in enumerate(faceLms.landmark):
-               # print(lm)
-                ih, iw, ic = img.shape
-                x,y=int(lm.x*iw), int(lm.y*ih)
-                print(id,x,y)
+    if results.detections:  # 가능하면
+        for id, detection in enumerate(results.detections):
+            # mpDraw.draw_detection(img,detection)
+            # print(id,detection)
+            # print(detection.score)
+            # print(detection.location_data.relative_bounding_box)
+            bboxC = detection.location_data.relative_bounding_box
+            ih, iw, ic = img.shape
+            x = int(bboxC.xmin * iw)
+            y = int(bboxC.ymin * ih)
+            w = int(bboxC.width * iw)
+            h = int(bboxC.height * ih)
+            cropped = img[y - int(h / 4):y + h + int(h / 4), x - int(w / 4):x + w + int(w / 4)]
     cTime=time.time()
     try:
         fps=1/(cTime-pTime)
