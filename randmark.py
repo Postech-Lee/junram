@@ -1,7 +1,7 @@
 import cv2
 import mediapipe as mp
 import time
-cap=cv2.VideoCapture("C://Users/user/PycharmProjects/datasets/try1.mp4")
+cap=cv2.VideoCapture("C://Users/user/PycharmProjects/datasets/test_videos/aalolkuhxb.mp4")
 pTime=0
 
 mpDraw=mp.solutions.drawing_utils
@@ -12,13 +12,13 @@ drawSpec = mpDraw.DrawingSpec(thickness=1, circle_radius=1)
 while True:
     success,img=cap.read()
     imgRGB = cv2.cvtColor(img,cv2.COLOR_BGR2RGB)
-    results = faceMash.process(imgRGB)
+    results = faceMash.process(img)
     if results.detections:  # 가능하면
         for id, detection in enumerate(results.detections):
-            # mpDraw.draw_detection(img,detection)
-            # print(id,detection)
-            # print(detection.score)
-            # print(detection.location_data.relative_bounding_box)
+            mpDraw.draw_detection(img,detection)
+            print(id,detection)
+            print(detection.score)
+            print(detection.location_data.relative_bounding_box)
             bboxC = detection.location_data.relative_bounding_box
             ih, iw, ic = img.shape
             x = int(bboxC.xmin * iw)

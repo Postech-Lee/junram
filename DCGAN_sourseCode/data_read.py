@@ -5,7 +5,7 @@ from PIL import Image
 import matplotlib.pyplot as plt
 
 ## 데이터 불러오기
-dir_data = './datasets'
+dir_data = '../datasets'
 
 name_label = 'train-labels.tif'
 name_input = 'train-volume.tif'

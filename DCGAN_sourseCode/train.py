@@ -40,15 +40,9 @@ python  train.py \
 
 ## 라이브러리 추가하기
 
-import os
-import numpy as np
-
-import torch
-import torch.nn as nn
 from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
-import time
-from model import *
+from DCGAN_sourseCode.model import *
 from dataset import *
 from util import *
 
@@ -101,8 +95,6 @@ def train(args):
     print("result dir: %s" % result_dir)
 
     print("device: %s" % device)
-    time.sleep(1)
-    print("this is REAL for 87.7 %")
     ## 디렉토리 생성하기
     result_dir_train = os.path.join(result_dir, 'train')
 

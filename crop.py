@@ -1,3 +1,4 @@
+#이미지 잘라서 저장하는 코ㅗ드
 import cv2
 
 face_cascade = cv2.CascadeClassifier('../haarcascades/haarcascade_frontalface_default.xml')

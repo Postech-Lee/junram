@@ -5,7 +5,7 @@ from skimage.transform import rescale, resize
 
 import torch
 import torch.nn as nn
-
+'''
 #네트워크 grad 설정하기
 def set_requires_grad(nets, requires_grad=False):
     if not isinstance(nets, list):
@@ -15,6 +15,8 @@ def set_requires_grad(nets, requires_grad=False):
         if net is not None:
             for param in net.parameters():
                 param.requires_grad = requires_grad
+                '''
+
 #네트워크 weights 초기화 하기
 def init_weights(net, init_type='normal', init_gain=0.02):
     def init_func(m):

@@ -42,12 +42,17 @@ model_1 = build_model()
 model_1.summary()
 
 hist_1 = model_1.fit(x_train, y_train,
-                     epochs=1,
+                     epochs=15,
                      validation_split=0.3,
                      batch_size=128)
 
 hist_1.history.keys()
 
+
+
+
+
+'''
 plt.figure(figsize=(12, 4))
 plt.subplot(1, 2, 1)
 plt.plot(hist_1.history['loss'], 'b--', label='loss')
@@ -63,3 +68,4 @@ plt.xlabel('Epochs')
 plt.grid()
 plt.legend()
 plt.show()
+'''

@@ -2,7 +2,7 @@ import os
 import glob
 from PIL import Image
 
-files = glob.glob('C://Users/user/PycharmProjects/datasets/fake_picture/*')
+files = glob.glob('C://Users//user//PycharmProjects//junram//nowtrying//3//*')
 
 for f in files:
     title, ext = os.path.splitext(f)

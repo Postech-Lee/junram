@@ -14,11 +14,11 @@ class CustomDataloader(Sequence):
 	def __init__(self, x_set, y_set, batch_size, shuffle=False):
 	    self.x, self.y = x_set, y_set
 	    self.batch_size = batch_size
-	    self.shuffle=shuffle
+	    self.shuffle = shuffle
 
 
     def __len__(self):
-        return math.ceil(len(self.x) / self.batch_size)
+       return math.ceil(len(self.x) / self.batch_size)
 
 
     def __getitem__(self, idx):
