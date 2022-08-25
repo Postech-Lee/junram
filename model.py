@@ -48,7 +48,7 @@ def model_build():
   input = Input(shape=(128,128,3))
   output = Conv2D(filters=64, kernel_size=5, padding='same', activation='relu')(input)
   output = Conv2D(filters=128, kernel_size=5, padding='same', activation='relu')(output)
-  output = MaxPool2D(pool_size=(2,2), strides=2, padding='same')(output)
+  output = MaxPool2D(pool_si  ze=(2,2), strides=2, padding='same')(output)
   output = MaxPool2D(pool_size=(2,2), strides=2, padding='same')(output)
   output = Conv2D(filters=256, kernel_size=3, padding='same', activation='relu')(output)
   output = MaxPool2D(pool_size=(2,2), strides=2, padding='same')(output)
