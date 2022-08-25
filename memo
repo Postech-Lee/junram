@@ -1,0 +1,4 @@
+입력 b h w d (. 높이 너비 깊이)
+필터 - n개가 쌓여 (kH kW D N)텐서 제공
+strides는 보폭 나타내는 정수 리스트, 1, sh, sw, 1
+padding 4x2의 정수리스트 or 패딩
