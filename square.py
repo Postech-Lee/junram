@@ -3,7 +3,7 @@ import cv2
 import mediapipe as mp
 import os
 
-name="3"
+name="2"
 cap=cv2.VideoCapture("videos/"+name+".mp4")
 
 mpFaceDetection = mp.solutions.face_detection
@@ -26,10 +26,10 @@ while True:
 
     if results.detections: #가능하면
         for id, detection in enumerate(results.detections):
-            mpDraw.draw_detection(img,detection)
-            print(id,detection)
-            print(detection.score)
-            print(detection.location_data.relative_bounding_box)
+            # mpDraw.draw_detection(img,detection)
+            # print(id,detection)
+            # print(detection.score)
+            # print(detection.location_data.relative_bounding_box)
             bboxC = detection.location_data. relative_bounding_box
             ih, iw, ic = img.shape
             x=int(bboxC.xmin * iw)

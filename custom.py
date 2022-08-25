@@ -101,8 +101,7 @@ def model_build():
     output = Dense(16, activation='relu')(output)
     output = Dense(2, activation='softmax')(output)
 
-    model = Model(inputs=[input], outputs=output)
-    model.compile(optimizer=Adam(learning_rate=1e-4),
+    model = Model(inputs=[input], outputs=outppile(optimizer=Adam(learning_rate=1e-4),
                   loss='sparse_categorical_crossentropy',
                   metrics=['accuracy'])
     return model
@@ -130,5 +129,6 @@ plt.plot(history.history['val_accuracy'], 'r:', label='validation_accuracy')
 plt.xlabel('Epochs')
 plt.grid()
 plt.legend()
-
+ut)
+    model.com
 plt.show()

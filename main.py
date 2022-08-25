@@ -1,6 +1,13 @@
 import argparse
-from DCGAN_sourseCode.train import *
+from train import *
+import numpy as np
+import pandas as pd
 import warnings
+import cv2
+import mediapipe as mp
+import time
+import os
+from PIL import Image
 
 warnings.filterwarnings(action='ignore')
 
@@ -41,14 +48,14 @@ REAL_FOLDER = 'real_picture' #테스트용 폴더이름
 FAKE_FOLDER = 'fake_picture' #테스트용 폴더이름
 
 
-print(f"Train samples: {len(os.listdir(os.path.join(DATA_FOLDER, TRAIN_SAMPLE_FOLDER)))}")
+#print(f"Train samples: {len(os.listdir(os.path.join(DATA_FOLDER, TRAIN_SAMPLE_FOLDER)))}")
 
-print(f"Test samples: {len(os.listdir(os.path.join(DATA_FOLDER, TEST_FOLDER)))}")
+#print(f"Test samples: {len(os.listdir(os.path.join(DATA_FOLDER, TEST_FOLDER)))}")
 
 train_list = list(os.listdir(os.path.join(DATA_FOLDER, TRAIN_SAMPLE_FOLDER))) #훈련 파일들 이름 리스트 train_list
 
 json_file = [file for file in train_list if  file.endswith('json')][0] #json파일 찾기
-print(f"JSON file: {json_file}")#json 파일 이름 찾기
+#print(f"JSON file: {json_file}")#json 파일 이름 찾기
 
 def get_meta_from_json(path): #json 읽기
     df = pd.read_json(os.path.join(DATA_FOLDER, path, json_file))
@@ -75,8 +82,8 @@ missing_data(meta_train_df.loc[meta_train_df.label=='REAL'])
 
 meta = np.array(list(meta_train_df.index))
 storage = np.array([file for file in train_list if  file.endswith('mp4')])
-print(f"Metadata: {meta.shape[0]}, Folder: {storage.shape[0]}")
-print(f"Files in metadata and not in folder: {np.setdiff1d(meta,storage,assume_unique=False).shape[0]}")#metadata에 있는데 실제로 없는 데이터
+#print(f"Metadata: {meta.shape[0]}, Folder: {storage.shape[0]}")
+#print(f"Files in metadata and not in folder: {np.setdiff1d(meta,storage,assume_unique=False).shape[0]}")#metadata에 있는데 실제로 없는 데이터
 #print(f"Files in folder and not in metadata: {np.setdiff1d(storage,meta,assume_unique=False).shape[0]}")#실제로 있는데 metadata에 없는 데이터
 #print(np.setdiff1d(meta,storage,assume_unique=False))
 
@@ -140,8 +147,11 @@ for i in train_list:
 '''
 if __name__ == "__main__":
     if args. mode == "train":
+
+        dir_TE = input("test할 영상의 디렉토리를 입력하세요: ")
         train(args)
     elif args.mode == "test":
         pass
+        #test(args)
 
 # tensorboard --logdir ./log
