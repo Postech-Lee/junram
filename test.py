@@ -1,6 +1,8 @@
+from tensorflow.python.client import device_lib
 import torch
+import keras
+print(device_lib.list_local_devices())
 print(torch.cuda.is_available())
-print("Torch version:{}".format(torch.__version__))
-print("cuda version: {}".format(torch.version.cuda))
-print("cudnn version:{}".format(torch.backends.cudnn.version()))
-
+print(torch.cuda.current_device())
+print(torch.cuda.get_device_name(0))
+print(keras.__version__)
