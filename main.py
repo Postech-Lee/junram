@@ -40,7 +40,7 @@ parser.add_argument("--learning_type", default="plain", choices=["plain", "resid
 
 args = parser.parse_args()
 
-'''
+
 DATA_FOLDER = "C://Users/user/PycharmProjects/datasets" #데이터들 위치지정
 TRAIN_SAMPLE_FOLDER = 'train_videos' #훈련용 폴더이름
 TEST_FOLDER = 'test_videos' #테스트용 폴더이름
@@ -144,7 +144,7 @@ for i in train_list:
 
 
 
-'''
+
 if __name__ == "__main__":
     if args. mode == "train":
 
